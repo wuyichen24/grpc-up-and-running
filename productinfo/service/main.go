@@ -4,8 +4,8 @@ import (
 	"log"
 	"net"
 
+	pb "github.com/wuyichen24/grpc-up-and-running/productinfo/service/ecommerce"
 	"google.golang.org/grpc"
-	pb "grpc-up-and-running/productinfo/service/ecommerce"
 )
 
 const (
