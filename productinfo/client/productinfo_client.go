@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"google.golang.org/grpc"
-	pb "grpc-up-and-running/productinfo/client/ecommerce"
+	pb "productinfo/client/ecommerce"
 )
 
 const (

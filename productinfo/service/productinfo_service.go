@@ -6,12 +6,12 @@ import (
 	"github.com/gofrs/uuid"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	pb "grpc-up-and-running/productinfo/service/ecommerce"
+	pb "productinfo/service/ecommerce"
 )
 
 // server is used to implement ecommerce/product_info.
 type server struct {
-	productMap map[string]*pb.Product   // Create a map for storing Product records.
+	productMap map[string]*pb.Product // Create a map for storing Product records.
 }
 
 // AddProduct implements ecommerce.AddProduct
