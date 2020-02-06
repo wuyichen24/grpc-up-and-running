@@ -14,7 +14,7 @@ type server struct {
 	productMap map[string]*pb.Product // Create a map for storing Product records.
 }
 
-// AddProduct implements ecommerce.AddProduct
+// Add a product.
 // This method will generate a new UUID as Product ID and store the Product into a map.
 // This method will return the Product ID.
 func (s *server) AddProduct(ctx context.Context, in *pb.Product) (*pb.ProductID, error) {
@@ -32,7 +32,7 @@ func (s *server) AddProduct(ctx context.Context, in *pb.Product) (*pb.ProductID,
 
 }
 
-// GetProduct implements ecommerce.GetProduct
+// Get a product by product ID.
 // This method will check the Product record is existing or not in the map
 func (s *server) GetProduct(ctx context.Context, in *pb.ProductID) (*pb.Product, error) {
 	value, exists := s.productMap[in.Value]

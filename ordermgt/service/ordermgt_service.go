@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	orderBatchSize = 3
+	maxBatchSize = 3
 )
 
 var orderMap = make(map[string]pb.Order)
@@ -23,6 +23,7 @@ type server struct {
 	orderMap map[string]*pb.Order
 }
 
+// Add a new order.
 // Simple RPC
 func (s *server) AddOrder(ctx context.Context, orderReq *pb.Order) (*wrapper.StringValue, error) {
 	log.Printf("Order Added. ID : %v", orderReq.Id)
@@ -30,6 +31,7 @@ func (s *server) AddOrder(ctx context.Context, orderReq *pb.Order) (*wrapper.Str
 	return &wrapper.StringValue{Value: "Order Added: " + orderReq.Id}, nil
 }
 
+// Get a order by order ID.
 // Simple RPC
 func (s *server) GetOrder(ctx context.Context, orderId *wrapper.StringValue) (*pb.Order, error) {
 	ord, exists := orderMap[orderId.Value]
@@ -40,6 +42,8 @@ func (s *server) GetOrder(ctx context.Context, orderId *wrapper.StringValue) (*p
 	return nil, status.Errorf(codes.NotFound, "Order does not exist. : ", orderId)
 }
 
+// Get all the orders which has a certain item.
+// All the matched orders will be returned from server as a stream.
 // Server-side Streaming RPC
 func (s *server) SearchOrders(searchQuery *wrappers.StringValue, stream pb.OrderManagement_SearchOrdersServer) error {
 	for key, order := range orderMap {
@@ -60,6 +64,8 @@ func (s *server) SearchOrders(searchQuery *wrappers.StringValue, stream pb.Order
 	return nil
 }
 
+// Update multiple orders.
+// All the orders will be sent from client as a stream.
 // Client-side Streaming RPC
 func (s *server) UpdateOrders(stream pb.OrderManagement_UpdateOrdersServer) error {
 	ordersStr := "Updated Order IDs : "
@@ -81,16 +87,20 @@ func (s *server) UpdateOrders(stream pb.OrderManagement_UpdateOrdersServer) erro
 	}
 }
 
+// Process multiple orders
+// All the order IDs will be sent from client as a stream.
+// A combined shipment will contains all the orders which will be delivered to the same destination.
+// When the batch size is reached, all the currently created combined shipments will be sent back to the client.
 // Bi-directional Streaming RPC
 func (s *server) ProcessOrders(stream pb.OrderManagement_ProcessOrdersServer) error {
-	batchMarker := 1
+	currentBatchSize := 1
 	var combinedShipmentMap = make(map[string]pb.CombinedShipment)
 	for {
 		orderId, err := stream.Recv()
 		log.Printf("Reading Proc order : %s", orderId)
 		if err == io.EOF {
-			// Client has sent all the messages
-			// Send remaining shipments
+			// If the stream reached the end (EOF is the signal for the end of the stream)
+			// Return all the remaining combined shipments to client.
 			log.Printf("EOF : %s", orderId)
 			for _, shipment := range combinedShipmentMap {
 				if err := stream.Send(&shipment); err != nil {
@@ -108,10 +118,14 @@ func (s *server) ProcessOrders(stream pb.OrderManagement_ProcessOrdersServer) er
 		shipment, found := combinedShipmentMap[destination]
 
 		if found {
+			// If the combined shipment has been found for that order by the same destination,
+			// Append the order into the combined shipment.
 			ord := orderMap[orderId.GetValue()]
 			shipment.OrdersList = append(shipment.OrdersList, &ord)
 			combinedShipmentMap[destination] = shipment
 		} else {
+			// If the combined shipment hasn't been found for that order by the same destination,
+			// Create a new combined shipment, append the order into it.
 			comShip := pb.CombinedShipment{Id: "cmb - " + (orderMap[orderId.GetValue()].Destination), Status: "Processed!", }
 			ord := orderMap[orderId.GetValue()]
 			comShip.OrdersList = append(shipment.OrdersList, &ord)
@@ -119,17 +133,19 @@ func (s *server) ProcessOrders(stream pb.OrderManagement_ProcessOrdersServer) er
 			log.Print(len(comShip.OrdersList), comShip.GetId())
 		}
 
-		if batchMarker == orderBatchSize {
+		if currentBatchSize == maxBatchSize {
+			// If the current batch size reaches the max batch size,
+			// return all the combined shipments to client.
 			for _, comb := range combinedShipmentMap {
 				log.Printf("Shipping : %v -> %v" , comb.Id, len(comb.OrdersList))
 				if err := stream.Send(&comb); err != nil {
 					return err
 				}
 			}
-			batchMarker = 0
+			currentBatchSize = 0
 			combinedShipmentMap = make(map[string]pb.CombinedShipment)
 		} else {
-			batchMarker++
+			currentBatchSize++
 		}
 	}
 }
