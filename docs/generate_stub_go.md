@@ -14,5 +14,5 @@
   ```
 - Run protoc
   ```
-  protoc -I <path_of_directory_storing_proto_file> <path_of_proto_file> --go_out=plugins=grpc:<path_of_where_you_want_to_generate_stub_file>
+  protoc -I <path_of_directory_storing_proto_file> <path_of_proto_file> --go_out=plugins=grpc:<path_of_directory_where_you_want_to_generate_stub_file>
   ```
