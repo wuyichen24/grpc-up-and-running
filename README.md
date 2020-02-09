@@ -1,6 +1,6 @@
 # grpc-up-and-running
 
-## Services And Remote Method
+## Services And Remote Methods
 ### Product Info
 
 | Method | Pattern | Description | 
