@@ -90,7 +90,7 @@ func (s *server) UpdateOrders(stream pb.OrderManagement_UpdateOrdersServer) erro
 // Process multiple orders
 // All the order IDs will be sent from client as a stream.
 // A combined shipment will contains all the orders which will be delivered to the same destination.
-// When the batch size is reached, all the currently created combined shipments will be sent back to the client.
+// When the max batch size is reached, all the currently created combined shipments will be sent back to the client.
 // Bi-directional Streaming RPC
 func (s *server) ProcessOrders(stream pb.OrderManagement_ProcessOrdersServer) error {
 	currentBatchSize := 1
