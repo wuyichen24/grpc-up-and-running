@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"github.com/golang/protobuf/ptypes/wrappers"
 	wrapper "github.com/golang/protobuf/ptypes/wrappers"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"io"
 	"log"
 	pb "ordergmt/service/ecommerce"
 	"strings"
+	"time"
 )
 
 const (
@@ -148,4 +150,56 @@ func (s *server) ProcessOrders(stream pb.OrderManagement_ProcessOrdersServer) er
 			currentBatchSize++
 		}
 	}
+}
+
+// Unary Interceptor (server-side)
+// This interceptor consists of pre-processing logic which will be executed before running the remote method,
+// post-processing logic which will be executed after running the remote method.
+func orderUnaryServerInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	// Pre-processing phase
+	// Gets info about the current RPC call by examining the args passed in
+	log.Println("======= [Server Interceptor] ", info.FullMethod)
+	log.Printf(" Pre Proc Message : %s", req)
+
+	// Invoking the handler to complete the normal execution of a unary RPC.
+	m, err := handler(ctx, req)
+
+	// Post-processing phase
+	log.Printf(" Post Proc Message : %s", m)
+	return m, err
+}
+
+// wrappedStream wraps grpc.ServerStream and intercepts the RecvMsg and SendMsg method call.
+type wrappedStream struct {
+	grpc.ServerStream
+}
+
+// Implementing the RecvMsg function of the wrapper to process messages received with stream RPC.
+func (w *wrappedStream) RecvMsg(m interface{}) error {
+	log.Printf("====== [Server Stream Interceptor Wrapper] Receive a message (Type: %T) at %s", m, time.Now().Format(time.RFC3339))
+	return w.ServerStream.RecvMsg(m)
+}
+
+// Implementing the SendMsg function of the wrapper to process messages sent with stream RPC.
+func (w *wrappedStream) SendMsg(m interface{}) error {
+	log.Printf("====== [Server Stream Interceptor Wrapper] Send a message (Type: %T) at %v", m, time.Now().Format(time.RFC3339))
+	return w.ServerStream.SendMsg(m)
+}
+
+// Creating an instance of the new wrapper stream.
+func newWrappedStream(s grpc.ServerStream) grpc.ServerStream {
+	return &wrappedStream{s}
+}
+
+// Streaming interceptor implementation.
+func orderServerStreamInterceptor(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+	// Pre-processing phase
+	log.Println("====== [Server Stream Interceptor] ", info.FullMethod)
+
+	// Invoking the StreamHandler to complete the execution of RPC invocation
+	err := handler(srv, newWrappedStream(ss))
+	if err != nil {
+		log.Printf("RPC failed with error %v", err)
+	}
+	return err
 }
