@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/golang/protobuf/ptypes/wrappers"
 	wrapper "github.com/golang/protobuf/ptypes/wrappers"
+	epb "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -21,21 +22,38 @@ const (
 
 var orderMap = make(map[string]pb.Order)
 
-type server struct {
+type orderMgtServer struct {
 	orderMap map[string]*pb.Order
 }
 
 // Add a new order.
 // Simple RPC
-func (s *server) AddOrder(ctx context.Context, orderReq *pb.Order) (*wrapper.StringValue, error) {
-	log.Printf("Order Added. ID : %v", orderReq.Id)
-	orderMap[orderReq.Id] = *orderReq
-	return &wrapper.StringValue{Value: "Order Added: " + orderReq.Id}, nil
+func (s *orderMgtServer) AddOrder(ctx context.Context, orderReq *pb.Order) (*wrapper.StringValue, error) {
+	if orderReq.Id == "-1" {
+		log.Printf("Order ID is invalid! -> Received Order ID %s", orderReq.Id)
+
+		errorStatus := status.New(codes.InvalidArgument, "Invalid information received")
+		ds, err := errorStatus.WithDetails(
+			&epb.BadRequest_FieldViolation{
+				Field:"ID",
+				Description: fmt.Sprintf("Order ID received is not valid %s : %s", orderReq.Id, orderReq.Description),
+			},
+		)
+		if err != nil {
+			return nil, errorStatus.Err()
+		}
+
+		return nil, ds.Err()
+	} else {
+		log.Printf("Order Added. ID : %v", orderReq.Id)
+		orderMap[orderReq.Id] = *orderReq
+		return &wrapper.StringValue{Value: "Order Added: " + orderReq.Id}, nil
+	}
 }
 
 // Get a order by order ID.
 // Simple RPC
-func (s *server) GetOrder(ctx context.Context, orderId *wrapper.StringValue) (*pb.Order, error) {
+func (s *orderMgtServer) GetOrder(ctx context.Context, orderId *wrapper.StringValue) (*pb.Order, error) {
 	ord, exists := orderMap[orderId.Value]
 	if exists {
 		return &ord, status.New(codes.OK, "").Err()
@@ -45,9 +63,9 @@ func (s *server) GetOrder(ctx context.Context, orderId *wrapper.StringValue) (*p
 }
 
 // Get all the orders which has a certain item.
-// All the matched orders will be returned from server as a stream.
+// All the matched orders will be returned from orderMgtServer as a stream.
 // Server-side Streaming RPC
-func (s *server) SearchOrders(searchQuery *wrappers.StringValue, stream pb.OrderManagement_SearchOrdersServer) error {
+func (s *orderMgtServer) SearchOrders(searchQuery *wrappers.StringValue, stream pb.OrderManagement_SearchOrdersServer) error {
 	for key, order := range orderMap {
 		log.Print(key, order)
 		for _, itemStr := range order.Items {
@@ -69,7 +87,7 @@ func (s *server) SearchOrders(searchQuery *wrappers.StringValue, stream pb.Order
 // Update multiple orders.
 // All the orders will be sent from client as a stream.
 // Client-side Streaming RPC
-func (s *server) UpdateOrders(stream pb.OrderManagement_UpdateOrdersServer) error {
+func (s *orderMgtServer) UpdateOrders(stream pb.OrderManagement_UpdateOrdersServer) error {
 	ordersStr := "Updated Order IDs : "
 	for {
 		order, err := stream.Recv()
@@ -94,7 +112,7 @@ func (s *server) UpdateOrders(stream pb.OrderManagement_UpdateOrdersServer) erro
 // A combined shipment will contains all the orders which will be delivered to the same destination.
 // When the max batch size is reached, all the currently created combined shipments will be sent back to the client.
 // Bi-directional Streaming RPC
-func (s *server) ProcessOrders(stream pb.OrderManagement_ProcessOrdersServer) error {
+func (s *orderMgtServer) ProcessOrders(stream pb.OrderManagement_ProcessOrdersServer) error {
 	currentBatchSize := 1
 	var combinedShipmentMap = make(map[string]pb.CombinedShipment)
 	for {
@@ -152,7 +170,7 @@ func (s *server) ProcessOrders(stream pb.OrderManagement_ProcessOrdersServer) er
 	}
 }
 
-// Unary Interceptor (server-side)
+// Unary Interceptor (orderMgtServer-side)
 // This interceptor consists of pre-processing logic which will be executed before running the remote method,
 // post-processing logic which will be executed after running the remote method.
 func orderUnaryServerInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {

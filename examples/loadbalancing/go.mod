@@ -1,7 +1,6 @@
-module productinfo/service
+module examples/loadbalancing
 
 require (
-	github.com/gofrs/uuid v3.2.0+incompatible
 	github.com/golang/protobuf v1.3.3
 	golang.org/x/net v0.0.0-20200114155413-6afb5195e5aa // indirect
 	golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 // indirect

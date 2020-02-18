@@ -3,10 +3,15 @@ package main
 import (
 	"context"
 	wrapper "github.com/golang/protobuf/ptypes/wrappers"
+	epb "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
+	"google.golang.org/grpc/status"
 	"io"
 	"log"
 	pb "ordergmt/client/ecommerce"
+    hwpb "google.golang.org/grpc/examples/helloworld/helloworld"
 	"time"
 )
 
@@ -23,36 +28,64 @@ func main() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	client  := pb.NewOrderManagementClient(conn)
+
+	// Create 2 clients for different services running on the same server.
+	orderMgtClient := pb.NewOrderManagementClient(conn)
+	helloClient    := hwpb.NewGreeterClient(conn)
 
 	// Initialize context with timeout
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second * 5)
 
 	// Initialize context with deadline
-	clientDeadline := time.Now().Add(time.Duration(2 * time.Second))
-	ctx, cancel := context.WithDeadline(context.Background(), clientDeadline)
+	//clientDeadline := time.Now().Add(time.Duration(2 * time.Second))
+	//ctx, cancel := context.WithDeadline(context.Background(), clientDeadline)
 
 	defer cancel()
 
 	// =========================================
 	// Add Order
 	// =========================================
+	// Case 1: Add an order with valid ID
 	order1 := pb.Order{Id: "101", Items: []string{"iPhone XS", "Mac Book Pro"}, Destination: "San Jose, CA", Price: 2300.00}
-	res, _ := client.AddOrder(ctx, &order1)
+	res, _ := orderMgtClient.AddOrder(ctx, &order1)
 	if res != nil {
+		log.Print("AddOrder Response -> ", res.Value)
+	}
+
+	// Case 2: Add an order with invalid ID
+	order2 := pb.Order{Id: "-1", Items:[]string{"iPhone XS", "Mac Book Pro"}, Destination:"San Jose, CA", Price:2300.00}
+	res, addOrderError := orderMgtClient.AddOrder(ctx, &order2)
+
+	if addOrderError != nil {
+		errorCode := status.Code(addOrderError)
+		if errorCode == codes.InvalidArgument {
+			log.Printf("Invalid Argument Error : %s", errorCode)
+			errorStatus := status.Convert(addOrderError)
+			for _, d := range errorStatus.Details() {
+				switch info := d.(type) {
+				case *epb.BadRequest_FieldViolation:
+					log.Printf("Request Field Invalid: %s", info)
+				default:
+					log.Printf("Unexpected error type: %s", info)
+				}
+			}
+		} else {
+			log.Printf("Unhandled error : %s ", errorCode)
+		}
+	} else {
 		log.Print("AddOrder Response -> ", res.Value)
 	}
 
 	// =========================================
 	// Get Order
 	// =========================================
-	retrievedOrder , err := client.GetOrder(ctx, &wrapper.StringValue{Value: "106"})
+	retrievedOrder , err := orderMgtClient.GetOrder(ctx, &wrapper.StringValue{Value: "106"})
 	log.Print("GetOrder Response -> : ", retrievedOrder)
 
 	// =========================================
 	// Search Order : Server streaming scenario
 	// =========================================
-	searchStream, 	_ := client.SearchOrders(ctx, &wrapper.StringValue{Value: "Google"})
+	searchStream, 	_ := orderMgtClient.SearchOrders(ctx, &wrapper.StringValue{Value: "Google"})
 	for {
 		searchOrder, err := searchStream.Recv()
 		if err == io.EOF {
@@ -64,7 +97,7 @@ func main() {
 			log.Print("Search Result : ", searchOrder)
 		}
 	}
-
+	mdCtx := metadata.NewOutgoingContext(context.Background(), md)
 	// =========================================
 	// Update Orders : Client streaming scenario
 	// =========================================
@@ -72,10 +105,10 @@ func main() {
 	updOrder2 := pb.Order{Id: "103", Items:[]string{"Apple Watch S4", "Mac Book Pro", "iPad Pro"}, Destination:"San Jose, CA", Price:2800.00}
 	updOrder3 := pb.Order{Id: "104", Items:[]string{"Google Home Mini", "Google Nest Hub", "iPad Mini"}, Destination:"Mountain View, CA", Price:2200.00}
 
-	updateStream, err := client.UpdateOrders(ctx)
+	updateStream, err := orderMgtClient.UpdateOrders(ctx)
 
 	if err != nil {
-		log.Fatalf("%v.UpdateOrders(_) = _, %v", client, err)
+		log.Fatalf("%v.UpdateOrders(_) = _, %v", orderMgtClient, err)
 	}
 
 	// Updating order 1
@@ -102,21 +135,21 @@ func main() {
 	// =========================================
 	// Process Order : Bi-di streaming scenario
 	// =========================================
-	streamProcOrder, err := client.ProcessOrders(ctx)
+	streamProcOrder, err := orderMgtClient.ProcessOrders(ctx)
 	if err != nil {
-		log.Fatalf("%v.ProcessOrders(_) = _, %v", client, err)
+		log.Fatalf("%v.ProcessOrders(_) = _, %v", orderMgtClient, err)
 	}
 
 	if err := streamProcOrder.Send(&wrapper.StringValue{Value:"102"}); err != nil {
-		log.Fatalf("%v.Send(%v) = %v", client, "102", err)
+		log.Fatalf("%v.Send(%v) = %v", orderMgtClient, "102", err)
 	}
 
 	if err := streamProcOrder.Send(&wrapper.StringValue{Value:"103"}); err != nil {
-		log.Fatalf("%v.Send(%v) = %v", client, "103", err)
+		log.Fatalf("%v.Send(%v) = %v", orderMgtClient, "103", err)
 	}
 
 	if err := streamProcOrder.Send(&wrapper.StringValue{Value:"104"}); err != nil {
-		log.Fatalf("%v.Send(%v) = %v", client, "104", err)
+		log.Fatalf("%v.Send(%v) = %v", orderMgtClient, "104", err)
 	}
 
 	channel := make(chan struct{})
@@ -124,12 +157,19 @@ func main() {
 	time.Sleep(time.Millisecond * 1000)
 
 	if err := streamProcOrder.Send(&wrapper.StringValue{Value:"101"}); err != nil {
-		log.Fatalf("%v.Send(%v) = %v", client, "101", err)
+		log.Fatalf("%v.Send(%v) = %v", orderMgtClient, "101", err)
 	}
 	if err := streamProcOrder.CloseSend(); err != nil {
 		log.Fatal(err)
 	}
 	<- channel
+
+	// =========================================
+	// SayHello : Call another service running on the same server
+	// =========================================
+	hwCtx, cancel := context.WithTimeout(context.Background(), time.Second * 5)
+	helloResponse, err := helloClient.SayHello(hwCtx, &hwpb.HelloRequest{Name: "gRPC Up and Running!"})
+	log.Print("Hello world response: ", helloResponse.Message)
 }
 
 func asncClientBidirectionalRPC(streamProcOrder pb.OrderManagement_ProcessOrdersClient, c chan struct{}) {
