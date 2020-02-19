@@ -4,6 +4,7 @@
 - [**Build Context**]()
 - [**Create Metadata (Optional)**]()
 - [**Add Metadata to Context (Optional)**]()
+- [**Call Remote Method**]()
 
 ### Build Connection
 - Basic version
@@ -68,4 +69,7 @@
   ctx2 := metadata.AppendToOutgoingContext(ctx1, "key1", "val1", "key2", "val2")
   ```
   
-
+### Call Remote Method
+```go
+output, err = client.someRemoteFunc(ctx, &input)
+```
