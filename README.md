@@ -17,6 +17,7 @@ This repository contains the Go source code of the book "[gRPC: Up and Running (
 - [Install Protocol Buffer Compiler](docs/install_protocol_buffer_compiler.md)
 - [Generate Server Stub](docs/generate_stub_go.md)
 - [Build Executable File](docs/build_executable.md)
+- [Write Client Code](docs/write_client.md)
 
 ## Services And Remote Methods
 ### Product Info
