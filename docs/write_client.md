@@ -3,6 +3,7 @@
 - [Build Connection]()
 - [Build Client]()
 - [Build Context]()
+- [Create Metadata]()
 
 ### Build Connection
 - Basic version
@@ -38,3 +39,33 @@
   deadline := time.Now().Add(time.Duration(5 * time.Second))
   ctx, cancel := context.WithDeadline(context.Background(), deadline)
   ```
+- With metadata
+  ```go
+  import "google.golang.org/grpc/metadata"
+  ctx := metadata.NewOutgoingContext(context.Background(), md)
+  ```
+
+### Create Metadata (Optional)
+- Option 1
+  ```go
+  md := metadata.New(map[string]string{"key1": "val1", "key2": "val2"})
+  ```
+- Option 2
+  ```go
+  md := metadata.Pairs(
+    "key1", "val1",
+    "key2", "val2"
+  )
+  ```
+
+### Add Metadata to Context
+- Create a new context by metadata
+  ```go
+  ctx := metadata.NewOutgoingContext(context.Background(), md)
+  ```
+- Append metadata to an existing context
+  ```go
+  ctx2 := metadata.AppendToOutgoingContext(ctx1, "key1", "val1", "key2", "val2")
+  ```
+  
+
