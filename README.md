@@ -4,6 +4,8 @@
 
 This repository contains the Go source code of the book "[gRPC: Up and Running ((Kasun Indrasiri))](http://shop.oreilly.com/product/0636920282754.do)" and the personal summary of technical essentials about gRPC.
 
+![](imgs/book-cover.jpg)
+
 ## Services And Remote Methods
 ### Product Info
 
