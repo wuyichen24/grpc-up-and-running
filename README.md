@@ -6,6 +6,13 @@ This repository contains the Go source code of the book "[gRPC: Up and Running (
 
 ![](imgs/book-cover.jpg)
 
+## Differences to The Original Source Code
+- Add the detailed [instruction](docs/install_protocol_buffer_compiler.md) about how to install protocol buffer compiler.
+- Flatten the source code by chapter into one application.
+- Make sure the code is runnable (Fix some issues in the original source code).
+- Better documentation.
+- Add comments to make the code easy to read.
+
 ## Services And Remote Methods
 ### Product Info
 
