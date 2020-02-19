@@ -16,12 +16,16 @@ This repository contains the Go source code of the book "[gRPC: Up and Running (
 ## Services And Remote Methods
 ### Product Info
 
+![](imgs/productinfo.png)
+
 | Method | Pattern | Description | 
 |---|---|---|
 | AddProduct | Unary RPC | Add a product. |
 | GetProduct | Unary RPC | Get a product by product ID. |
 
 ### Order Management
+
+![](imgs/ordermgt.png)
 
 | Method | Pattern | Description | 
 |---|---|---|
