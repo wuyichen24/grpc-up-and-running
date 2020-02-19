@@ -5,6 +5,7 @@
 - [**Create Metadata (Optional)**]()
 - [**Add Metadata to Context (Optional)**]()
 - [**Call Remote Method**]()
+- [**Handle Response Error**]()
 
 ### Build Connection
 - Basic version
@@ -72,4 +73,18 @@
 ### Call Remote Method
 ```go
 output, err = client.someRemoteFunc(ctx, &input)
+```
+
+### Handle Response Error
+```go
+import "google.golang.org/grpc/status"
+
+output, err = client.someRemoteFunc(ctx, &input)
+if err != nil {
+    errorCode    := status.Code(err)
+    errorStatus  := status.Convert(err)
+    errorDetails := errorStatus.Details()
+    
+    // Error handling
+}
 ```
