@@ -36,5 +36,5 @@
 - With deadline
   ```go
   deadline := time.Now().Add(time.Duration(5 * time.Second))
-	ctx, cancel := context.WithDeadline(context.Background(), deadline)
+  ctx, cancel := context.WithDeadline(context.Background(), deadline)
   ```
