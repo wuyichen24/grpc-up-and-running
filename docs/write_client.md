@@ -31,7 +31,10 @@
 ### Build Context
 - With timeout
   ```go
+  ctx, cancel := context.WithTimeout(context.Background(), time.Second * 5)
   ```
 - With deadline
   ```go
+  deadline := time.Now().Add(time.Duration(5 * time.Second))
+	ctx, cancel := context.WithDeadline(context.Background(), deadline)
   ```
