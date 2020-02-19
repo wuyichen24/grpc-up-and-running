@@ -1,5 +1,9 @@
 # grpc-up-and-running
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0) 
+
+This repository contains the Go source code of the book "[gRPC: Up and Running ((Kasun Indrasiri))](http://shop.oreilly.com/product/0636920282754.do)" and the personal summary of technical essentials about gRPC.
+
 ## Services And Remote Methods
 ### Product Info
 
