@@ -6,12 +6,11 @@ import (
 	epb "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/metadata"
+	hwpb "google.golang.org/grpc/examples/helloworld/helloworld"
 	"google.golang.org/grpc/status"
 	"io"
 	"log"
 	pb "ordergmt/client/ecommerce"
-    hwpb "google.golang.org/grpc/examples/helloworld/helloworld"
 	"time"
 )
 
@@ -97,7 +96,7 @@ func main() {
 			log.Print("Search Result : ", searchOrder)
 		}
 	}
-	mdCtx := metadata.NewOutgoingContext(context.Background(), md)
+
 	// =========================================
 	// Update Orders : Client streaming scenario
 	// =========================================
