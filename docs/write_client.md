@@ -1,11 +1,11 @@
 ## Write Client Code
-- [**Build Connection**]()
-- [**Build Client**]()
-- [**Build Context**]()
-- [**Create Metadata (Optional)**]()
-- [**Add Metadata to Context (Optional)**]()
-- [**Call Remote Method**]()
-- [**Handle Response Error**]()
+- [**Build Connection**](#build-connection)
+- [**Build Client**](#build-client)
+- [**Build Context**](#build-context)
+- [**Create Metadata (Optional)**](#create-metadata-optional)
+- [**Add Metadata to Context (Optional)**](#add-metadata-to-context-optional)
+- [**Call Remote Method**](#call-remote-method)
+- [**Handle Response Error**](#handle-response-error)
 
 ### Build Connection
 - Basic version
