@@ -1,9 +1,9 @@
 ## Write Client Code
-
-- [Build Connection]()
-- [Build Client]()
-- [Build Context]()
-- [Create Metadata]()
+- [**Build Connection**]()
+- [**Build Client**]()
+- [**Build Context**]()
+- [**Create Metadata (Optional)**]()
+- [**Add Metadata to Context (Optional)**]()
 
 ### Build Connection
 - Basic version
@@ -58,7 +58,7 @@
   )
   ```
 
-### Add Metadata to Context
+### Add Metadata to Context (Optional)
 - Create a new context by metadata
   ```go
   ctx := metadata.NewOutgoingContext(context.Background(), md)
