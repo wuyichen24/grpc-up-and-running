@@ -1,6 +1,7 @@
 ## Write Server Code
 - [**Build Listener**]()
 - [**Build gRPC Server**]()
+- [**Register Service(s)**]()
 
 ### Build Listener
 ```go
@@ -26,3 +27,20 @@ listener, err := net.Listen("tcp", ":50051")
     grpc.UnaryInterceptor(unaryInterceptorFunc),     // Register unary interceptor.
     grpc.StreamInterceptor(streamInterceptorFunc))   // Register stream interceptor.
   ```
+
+### Register Service(s)
+- Register single service
+  ```go
+  type server struct {}
+  
+  pb.RegisterAbcServer(s, &server{})    // Abc is the service name
+  ```
+- Register multiple services
+  ```go
+  type abcServer struct {}
+  type xyzServer struct {}
+  
+  abc_pb.RegisterAbcServer(s, &abcServer{})   // Abc is the service name
+	xyz_pb.RegisterXyzServer(s, &xyzServer{})   // Xyz is the service name
+  ```
+  
