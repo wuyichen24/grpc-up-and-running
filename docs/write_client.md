@@ -6,7 +6,7 @@
 - [**Add Metadata to Context (Optional)**](#add-metadata-to-context-optional)
 - [**Call Remote Method**](#call-remote-method)
 - [**Handle Response Error**](#handle-response-error)
-- [**Read Metadata from Response**]
+- [**Read Metadata from Response**](#read-metadata-from-response)
 
 ### Build Connection
 - Basic version
