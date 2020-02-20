@@ -87,7 +87,7 @@
       }
 
       if err == nil {
-          // Process output.
+          // Process single output.
       }
   }
   ```
