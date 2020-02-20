@@ -1,12 +1,25 @@
 ## Write Server Code
 - [**Build Listener**](#build-listener)
+   - Basic version
+   - With unary interceptor
+   - With stream interceptor
+   - With both unary interceptor and stream interceptor
 - [**Build gRPC Server**](#build-grpc-server)
+   - Register single service
+   - Register multiple services
 - [**Register Service(s)**](#register-services)
 - [**Start gRPC Server**](#start-grpc-server)
 - [**Implement Remote Methods**](#implement-remote-methods)
    - [Basic Pattern](#basic-pattern)
    - [Process Inputs](#process-inputs)
+      - Process unary input
+      - Process stream intput
+      - Process metadata
    - [Return Outputs](#return-outputs)
+      - Return unary output
+      - Return stream output
+      - Return metadata
+      - Return error
 
 ### Build Listener
 ```go
