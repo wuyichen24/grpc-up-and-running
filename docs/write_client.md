@@ -23,7 +23,9 @@
   ```
 - With both unary interceptor and stream interceptor
   ```go
-  conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithUnaryInterceptor(unaryInterceptorFunc), grpc.WithStreamInterceptor(streamInterceptorFunc))
+  conn, err := grpc.Dial(address, grpc.WithInsecure(), 
+    grpc.WithUnaryInterceptor(unaryInterceptorFunc), 
+    grpc.WithStreamInterceptor(streamInterceptorFunc))
   ```
 
 ### Build Client
