@@ -71,9 +71,25 @@
   ```
   
 ### Call Remote Method
-```go
-output, err = client.someRemoteFunc(ctx, &input)
-```
+- Unary RPC
+  ```go
+  output, err = client.someRemoteFunc(ctx, &input)
+  ```
+- Server-side Streaming RPC
+  ```go
+  outputStream, streamErr := client.someRemoteFunc(ctx, input)
+  for {
+      output, err := outputStream.Recv()
+      if err == io.EOF {    // End of stream.
+          log.Print("EOF")
+			    break
+      }
+
+      if err == nil {
+			    // Process output.
+      }
+  }
+  ```
 
 ### Handle Response Error
 ```go
