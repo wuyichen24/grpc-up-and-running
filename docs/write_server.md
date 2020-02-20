@@ -166,6 +166,8 @@ func (s *abcServer) RemoteFunc3(ctx context.Context, input *InputType) (*OutputT
      ```
    - error status with details
      ```go
+     import epb "google.golang.org/genproto/googleapis/rpc/errdetails"
+     
      errorStatus := status.New(codes.ErrorCodeOption, "The error description.")  // ErrorCodeOption needs to be replaced by real option.
      ds, err := errorStatus.WithDetails(
 			   &epb.DetailOption1{},                                                   // DetailOption1 needs to be replaced by real option.
