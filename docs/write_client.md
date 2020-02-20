@@ -6,6 +6,7 @@
 - [**Add Metadata to Context (Optional)**](#add-metadata-to-context-optional)
 - [**Call Remote Method**](#call-remote-method)
 - [**Handle Response Error**](#handle-response-error)
+- [**Read Metadata from Response**]
 
 ### Build Connection
 - Basic version
@@ -117,3 +118,18 @@ if err != nil {
     // Error handling
 }
 ```
+
+### Read Metadata from Response
+- Unary
+  ```go
+  var header, trailer metadata.MD
+  output, err = client.someRemoteFunc(ctx, &input, grpc.Header(&header), grpc.Trailer(&trailer))
+  // Process header and trailer map
+  ```
+- Streaming
+  ```go
+  outputStream, streamErr := client.someRemoteFunc(ctx, input)
+  header, err := outputStream.Header()
+  trailer     := outputStream.Trailer()
+  // Process header and trailer map
+  ```
