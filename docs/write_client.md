@@ -82,11 +82,11 @@
       output, err := outputStream.Recv()
       if err == io.EOF {    // End of stream.
           log.Print("EOF")
-			    break
+          break
       }
 
       if err == nil {
-			    // Process output.
+          // Process output.
       }
   }
   ```
