@@ -1,9 +1,12 @@
 ## Write Server Code
-- [**Build Listener**]()
-- [**Build gRPC Server**]()
-- [**Register Service(s)**]()
-- [**Start gRPC Server**]()
-- [**Implement Remote Methods**]()
+- [**Build Listener**](#build-listener)
+- [**Build gRPC Server**](#build-grpc-server)
+- [**Register Service(s)**](#register-services)
+- [**Start gRPC Server**](#start-grpc-server)
+- [**Implement Remote Methods**](#implement-remote-methods)
+   - [Basic Pattern](#basic-pattern)
+   - [Process Inputs](#process-inputs)
+   - [Return Outputs](#return-outputs)
 
 ### Build Listener
 ```go
