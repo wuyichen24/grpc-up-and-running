@@ -33,9 +33,9 @@ listener, err := net.Listen("tcp", ":50051")
 ### Register Service(s)
 - Register single service
   ```go
-  type server struct {}
+  type abcServer struct {}
   
-  pb.RegisterAbcServer(s, &server{})    // Abc is the service name
+  pb.RegisterAbcServer(s, &abcServer{})       // Abc is the service name
   ```
 - Register multiple services
   ```go
@@ -55,3 +55,12 @@ if err := s.Serve(lis); err != nil {
 
 ### Implement Remote Methods
 #### Basic Pattern
+```go
+type abcServer struct {}
+
+func (s *abcServer) remoteFunc1(ctx context.Context, input *InputType) (*OutputType, error) {}
+
+func (s *abcServer) remoteFunc2(ctx context.Context, input *InputType) (*OutputType, error) {}
+
+func (s *abcServer) remoteFunc3(ctx context.Context, input *InputType) (*OutputType, error) {}
+```
