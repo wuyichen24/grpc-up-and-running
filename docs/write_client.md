@@ -96,7 +96,9 @@
   inputStream, err := client.someRemoteFunc(ctx)   // Create input stream
   
   for _ , input := range inputs {                  // Send multiple inputs
-      inputStream.Send(&input)
+      if err := inputStream.Send(&input); err != nil {
+          log.Fatalf("%v.Send(%v) = %v", inputStream, input, err)
+      }
   }
   
   output, err := inputStream.CloseAndRecv()        // Close sending and get output
