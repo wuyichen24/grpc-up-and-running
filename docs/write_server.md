@@ -3,6 +3,7 @@
 - [**Build gRPC Server**]()
 - [**Register Service(s)**]()
 - [**Start gRPC Server**]()
+- [**Implement Remote Methods**]()
 
 ### Build Listener
 ```go
@@ -51,3 +52,6 @@ if err := s.Serve(lis); err != nil {
     log.Fatalf("failed to serve: %v", err)
 }
 ```
+
+### Implement Remote Methods
+#### Basic Pattern
