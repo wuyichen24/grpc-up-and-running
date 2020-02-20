@@ -71,16 +71,17 @@
   ```
   
 ### Call Remote Method
-- Unary RPC
+- Unary
   ```go
   output, err = client.someRemoteFunc(ctx, &input)
   ```
-- Server-side Streaming RPC
+- Server-side streaming
   ```go
   outputStream, streamErr := client.someRemoteFunc(ctx, input)
-  for {
+  
+  for {                                            // Process multiple outputs
       output, err := outputStream.Recv()
-      if err == io.EOF {    // End of stream.
+      if err == io.EOF {                           // End of stream, break infinite loop
           log.Print("EOF")
           break
       }
@@ -89,6 +90,16 @@
           // Process output.
       }
   }
+  ```
+- Client-side streaming
+  ```go
+  inputStream, err := client.someRemoteFunc(ctx)   // Create input stream
+  
+  for _ , input := range inputs {                  // Send multiple inputs
+      inputStream.Send(&input)
+  }
+  
+  output, err := inputStream.CloseAndRecv()        // Close sending and get output
   ```
 
 ### Handle Response Error
