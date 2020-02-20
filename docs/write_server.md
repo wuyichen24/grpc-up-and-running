@@ -109,6 +109,53 @@ func (s *abcServer) RemoteFunc3(ctx context.Context, input *InputType) (*OutputT
 
 #### Return Outputs
 - Return unary output
+  ```go
+  func (s *abcServer) RemoteFunc(ctx context.Context, input *InputType) (*OutputType, error) {
+      return &output, status.New(codes.OK, "").Err()
+  }
+  ```
 - Return stream output
-- Return error
+  ```go
+  func (s *abcServer) RemoteFunc(input *InputType, stream pb.Abc_RemoteFuncServer) error {
+      for _ , output := range output {
+          err := stream.Send(&output)
+      }
+      return nil
+  }
+  ```
 - Return metadata
+   - In unary input function
+     ```go
+     func (s *abcServer) RemoteFunc(ctx context.Context, input *InputType) (*OutputType, error) {
+         header := metadata.Pairs("header-key", "val")
+         grpc.SendHeader(ctx, header)
+         trailer := metadata.Pairs("trailer-key", "val")
+         grpc.SetTrailer(ctx, trailer)
+     }
+     ```
+   - In stream input function
+     ```go
+     func (s *abcServer) RemoteFunc(stream pb.Abc_RemoteFuncServer) error {
+         header := metadata.Pairs("header-key", "val")
+         stream.SendHeader(header)
+         trailer := metadata.Pairs("trailer-key", "val")    
+         stream.SetTrailer(trailer)
+     }
+     ```
+- Return error
+   - Only error status
+     ```go
+     errorStatus := status.New(codes.ErrorCodeOption, "The error description.")  // ErrorCodeOption needs to be replaced by real option.
+     return errorStatus.Err()
+     ```
+   - error status with details
+     ```go
+     errorStatus := status.New(codes.ErrorCodeOption, "The error description.")  // ErrorCodeOption needs to be replaced by real option.
+     ds, err := errorStatus.WithDetails(
+			   &epb.DetailOption1{},                                                   // DetailOption1 needs to be replaced by real option.
+         &epb.DetailOption2{},                                                   // DetailOption2 needs to be replaced by real option.
+         &epb.DetailOption3{}                                                    // DetailOption3 needs to be replaced by real option.
+		 )
+     return ds.Err()
+     ```
+
