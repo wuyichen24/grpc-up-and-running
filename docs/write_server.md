@@ -45,9 +45,9 @@ listener, err := net.Listen("tcp", ":50051")
   xyz_pb.RegisterXyzServer(s, &xyzServer{})   // Xyz is the service name
   ```
   
-  ### Start gRPC Server
-  ```go
-  if err := s.Serve(lis); err != nil {
-      log.Fatalf("failed to serve: %v", err)
-  }
-  ```
+### Start gRPC Server
+```go
+if err := s.Serve(lis); err != nil {
+    log.Fatalf("failed to serve: %v", err)
+}
+```
