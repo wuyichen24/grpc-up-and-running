@@ -2,6 +2,7 @@
 - [**Build Listener**]()
 - [**Build gRPC Server**]()
 - [**Register Service(s)**]()
+- [**Start gRPC Server**]()
 
 ### Build Listener
 ```go
@@ -41,6 +42,12 @@ listener, err := net.Listen("tcp", ":50051")
   type xyzServer struct {}
   
   abc_pb.RegisterAbcServer(s, &abcServer{})   // Abc is the service name
-	xyz_pb.RegisterXyzServer(s, &xyzServer{})   // Xyz is the service name
+  xyz_pb.RegisterXyzServer(s, &xyzServer{})   // Xyz is the service name
   ```
   
+  ### Start gRPC Server
+  ```go
+  if err := s.Serve(lis); err != nil {
+      log.Fatalf("failed to serve: %v", err)
+  }
+  ```
