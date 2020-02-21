@@ -1,9 +1,13 @@
 ## Write Client Code
 - [**Build Connection**](#build-connection)
    - Basic version
-   - With unary interceptor
-   - With stream interceptor
-   - With both unary interceptor and stream interceptor
+   - With dial option(s)
+- [**Available Dial Option**](#available-dial-option)
+   - Security
+      - No security
+   - Interceptor
+      - Unary interceptor
+      - Stream interceptor
 - [**Build Client**](#build-client)
 - [**Build Context**](#build-context)
    - With timeout
@@ -27,22 +31,31 @@
 ### Build Connection
 - Basic version
   ```go
-  conn, err := grpc.Dial(address, grpc.WithInsecure())
+  conn, err := grpc.Dial(address)
   ```
-- With unary interceptor
+- With dial option(s)
   ```go
-  conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithUnaryInterceptor(unaryInterceptorFunc))
+  opts := []grpc.DialOption{
+      opt1, opt2, opt3
+  }
+  conn, err := grpc.Dial(address, opts...)
   ```
-- With stream interceptor
-  ```go
-  conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithStreamInterceptor(streamInterceptorFunc))
-  ```
-- With both unary interceptor and stream interceptor
-  ```go
-  conn, err := grpc.Dial(address, grpc.WithInsecure(), 
-    grpc.WithUnaryInterceptor(unaryInterceptorFunc), 
-    grpc.WithStreamInterceptor(streamInterceptorFunc))
-  ```
+
+### Available Dial Option
+- Security
+   - No security
+     ```go
+     grpc.WithInsecure()
+     ```
+- Interceptor
+   - Unary interceptor
+     ```go
+     grpc.WithUnaryInterceptor(unaryInterceptorFunc)
+     ```
+   - Stream interceptor
+     ```go
+     grpc.WithStreamInterceptor(streamInterceptorFunc)
+     ```
 
 ### Build Client
 - Basic version
