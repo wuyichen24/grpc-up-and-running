@@ -1,9 +1,7 @@
 ## Write Server Code
 - [**Build Listener**](#build-listener)
    - Basic version
-   - With unary interceptor
-   - With stream interceptor
-   - With both unary interceptor and stream interceptor
+   - With option(s)
 - [**Build gRPC Server**](#build-grpc-server)
    - Register single service
    - Register multiple services
@@ -31,19 +29,22 @@ listener, err := net.Listen("tcp", ":50051")
   ```go
   s := grpc.NewServer()
   ```
-- With unary interceptor
+- With option(s)
   ```go
-  s := grpc.NewServer(grpc.UnaryInterceptor(unaryInterceptorFunc))
+  opts := []grpc.ServerOption{
+      opt1, opt2, opt3
+  }
+  s := grpc.NewServer(opts...)
   ```
-- With stream interceptor
+  
+### Available Server Option
+- Unary interceptor
   ```go
-  s := grpc.NewServer(grpc.StreamInterceptor(streamInterceptorFunc))
+  grpc.UnaryInterceptor(unaryInterceptorFunc)
   ```
-- With both unary interceptor and stream interceptor
+- Stream interceptor
   ```go
-  s := grpc.NewServer(
-    grpc.UnaryInterceptor(unaryInterceptorFunc),     // Register unary interceptor.
-    grpc.StreamInterceptor(streamInterceptorFunc))   // Register stream interceptor.
+  grpc.StreamInterceptor(streamInterceptorFunc)
   ```
 
 ### Register Service(s)
