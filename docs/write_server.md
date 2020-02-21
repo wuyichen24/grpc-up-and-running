@@ -1,7 +1,7 @@
 ## Write Server Code
 - [**Build Listener**](#build-listener)
    - Basic version
-   - With option(s)
+   - With server option(s)
 - [**Available Server Option**](#available-server-option)
    - Unary interceptor
    - Stream interceptor
@@ -32,7 +32,7 @@ listener, err := net.Listen("tcp", ":50051")
   ```go
   s := grpc.NewServer()
   ```
-- With option(s)
+- With server option(s)
   ```go
   opts := []grpc.ServerOption{
       opt1, opt2, opt3
