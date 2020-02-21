@@ -2,6 +2,9 @@
 - [**Build Listener**](#build-listener)
    - Basic version
    - With option(s)
+- [**Available Server Option**](#available-server-option)
+   - Unary interceptor
+   - Stream interceptor
 - [**Build gRPC Server**](#build-grpc-server)
    - Register single service
    - Register multiple services
