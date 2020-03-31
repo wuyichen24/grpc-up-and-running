@@ -15,8 +15,16 @@
 
 ## TLS Authentication
 ### One-way TLS
-#### Server Code
-#### Client Code
+#### Server-side Code Change
+- Read and parse a public/private key pair and create a certificate.
+  ```go
+  cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
+  ```
+- Add an option to enable TLS for all incoming connections by adding certificates as TLS server credentials.
+
+#### Client Code Code Change
+
+
 ### Two-way TLS
 #### Server Code
 #### Client Code
