@@ -1,4 +1,4 @@
-## Write Client Code
+# Write Client Code
 - [**Build Connection**](#build-connection)
 - [**Available Dial Option**](#available-dial-option)
 - [**Build Client**](#build-client)
