@@ -15,14 +15,19 @@
 
 ## TLS Authentication
 ### One-way TLS
-#### Server-side Code Change
+#### Server Code
 - Read and parse a public/private key pair and create a certificate.
   ```go
   cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
   ```
 - Add an option to enable TLS for all incoming connections by adding certificates as TLS server credentials.
+  ```
+  opts := []grpc.ServerOption{
+      grpc.Creds(credentials.NewServerTLSFromCert(&cert)),
+  }
+  ```
 
-#### Client Code Code Change
+#### Client Code
 
 
 ### Two-way TLS
