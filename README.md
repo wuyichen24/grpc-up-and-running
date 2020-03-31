@@ -14,7 +14,7 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
 - Better documentation.
 - Add comments to make the code easy to read.
 
-## Tutorials
+## Study Notes
 - [Install Protocol Buffer Compiler](docs/install_protocol_buffer_compiler.md)
 - [Generate Server Stub](docs/generate_stub_go.md)
 - [Build Executable File](docs/build_executable.md)
