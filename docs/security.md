@@ -4,7 +4,7 @@
    - [**One-way TLS**]()
       - [**Server Code**]()
       - [**Client Code**]()
-   - [**Two-way TLS**]()
+   - [**Two-way TLS (mTLS)**]()
       - [**Server Code**]()
       - [**Client Code**]()
 - [**Other Authentication Solutions**]()
@@ -30,7 +30,7 @@
 #### Client Code
 
 
-### Two-way TLS
+### Two-way TLS (mTLS)
 #### Server Code
 #### Client Code
 
