@@ -44,6 +44,7 @@
   ```
 
 ### Two-way TLS (mTLS)
+![](../docs/diagram/mtls.png)
 - Authenticate both server identity and client identity.
 - Server and client share their public certificates with each other.
 
