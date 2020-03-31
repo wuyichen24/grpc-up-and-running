@@ -1,15 +1,17 @@
 ## Write Server Code
-- [**Build Listener**](#build-listener)
-- [**Build gRPC Server**](#build-grpc-server)
-   - Basic version
-   - With server option(s)
-- [**Available Server Option**](#available-server-option)
-   - Unary interceptor
-   - Stream interceptor
-- [**Register Service(s)**](#register-services)
-   - Register single service
-   - Register multiple services
-- [**Start gRPC Server**](#start-grpc-server)
+
+- [**Implement Main Method**]
+   - [**Build Listener**](#build-listener)
+   - [**Build gRPC Server**](#build-grpc-server)
+      - Basic version
+      - With server option(s)
+   - [**Available Server Option**](#available-server-option)
+      - Unary interceptor
+      - Stream interceptor
+   - [**Register Service(s)**](#register-services)
+      - Register single service
+      - Register multiple services
+   - [**Start gRPC Server**](#start-grpc-server)
 - [**Implement Remote Methods**](#implement-remote-methods)
    - [Basic Pattern](#basic-pattern)
    - [Process Inputs](#process-inputs)
@@ -22,6 +24,7 @@
       - Return metadata
       - Return error
 
+## Implement Main Method
 ### Build Listener
 ```go
 listener, err := net.Listen("tcp", ":50051")
@@ -73,8 +76,8 @@ if err := s.Serve(lis); err != nil {
 }
 ```
 
-### Implement Remote Methods
-#### Basic Pattern
+## Implement Remote Methods
+### Basic Pattern
 ```go
 type abcServer struct {}
 
@@ -85,7 +88,7 @@ func (s *abcServer) RemoteFunc2(ctx context.Context, input *InputType) (*OutputT
 func (s *abcServer) RemoteFunc3(ctx context.Context, input *InputType) (*OutputType, error) {}
 ```
 
-#### Process Inputs
+### Process Inputs
 - Process unary input
   ```go
   type abcServer struct {}
@@ -127,7 +130,7 @@ func (s *abcServer) RemoteFunc3(ctx context.Context, input *InputType) (*OutputT
      }
      ```
 
-#### Return Outputs
+### Return Outputs
 - Return unary output
   ```go
   func (s *abcServer) RemoteFunc(ctx context.Context, input *InputType) (*OutputType, error) {
