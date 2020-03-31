@@ -16,7 +16,7 @@
 ## TLS Authentication
 ### One-way TLS
 #### Server Code
-- Read and parse a public/private key pair and create a certificate.
+- Create a certificate object by reading and parsing a public/private key pair
   ```go
   cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
   ```
@@ -28,15 +28,16 @@
   ```
 
 #### Client Code
-- Read and parse a public certificate and create a certificate.
+- Create a credential object by reading and parsing a public certificate.
   ```go
   creds, err := credentials.NewClientTLSFromFile("server.crt", "localhost")
   ```
 - Add a dial option to include transport credentials.
-  ```
+  ```go
   opts := []grpc.DialOption{
       grpc.WithTransportCredentials(creds),
   }
+  ```
 
 ### Two-way TLS (mTLS)
 #### Server Code
