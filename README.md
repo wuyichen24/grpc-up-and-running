@@ -6,14 +6,6 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
 
 ![](imgs/book-cover.jpg)
 
-## Differences to The Original Source Code
-- Add the detailed [instruction](docs/install_protocol_buffer_compiler.md) about how to install protocol buffer compiler.
-- Add tutorials of writing server code and client code and modularize them by functionality.
-- Flatten the source code by chapter into one application.
-- Make sure the code is runnable (Fix some issues in the original source code).
-- Better documentation.
-- Add comments to make the code easy to read.
-
 ## Study Notes
 - [Install Protocol Buffer Compiler](docs/install_protocol_buffer_compiler.md)
 - [Generate Server Stub](docs/generate_stub_go.md)
@@ -21,6 +13,14 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
 - [Write Client Code](docs/write_client.md)
 - [Write Server Code](docs/write_server.md)
 - [Authentication](docs/authentication.md)
+
+## Differences to The Original Source Code
+- Add the detailed [instruction](docs/install_protocol_buffer_compiler.md) about how to install protocol buffer compiler.
+- Add tutorials of writing server code and client code and modularize them by functionality.
+- Flatten the source code by chapter into one application.
+- Make sure the code is runnable (Fix some issues in the original source code).
+- Better documentation.
+- Add comments to make the code easy to read.
 
 ## Services And Remote Methods
 ### Product Info
