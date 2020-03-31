@@ -16,6 +16,7 @@
 
 ## TLS Authentication
 ### One-way TLS
+![](docs/diagram/tls.png)
 - Only authenticate server identity.
 - Only server shares public certificate.
 #### Server Code
