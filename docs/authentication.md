@@ -5,6 +5,7 @@
       - [**Server Code**]()
       - [**Client Code**]()
    - [**Two-way TLS (mTLS)**]()
+      - [**Basic Flow**]()
       - [**Server Code**]()
       - [**Client Code**]()
 - [**Other Authentication Solutions**]()
