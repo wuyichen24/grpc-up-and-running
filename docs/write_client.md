@@ -1,32 +1,13 @@
 ## Write Client Code
 - [**Build Connection**](#build-connection)
-   - Basic version
-   - With dial option(s)
 - [**Available Dial Option**](#available-dial-option)
-   - Security
-      - No security
-   - Interceptor
-      - Unary interceptor
-      - Stream interceptor
 - [**Build Client**](#build-client)
 - [**Build Context**](#build-context)
-   - With timeout
-   - With deadline
-   - With metadata
 - [**Create Metadata (Optional)**](#create-metadata-optional)
-   - Option 1
-   - Option 2
 - [**Add Metadata to Context (Optional)**](#add-metadata-to-context-optional)
-   - Create a new context by metadata
-   - Append metadata to an existing context
 - [**Call Remote Method**](#call-remote-method)
-   - Unary
-   - Server-side streaming
-   - Client-side streaming
 - [**Handle Response Error**](#handle-response-error)
 - [**Read Metadata from Response**](#read-metadata-from-response)
-   - Unary
-   - Streaming
 
 ### Build Connection
 - Basic version
