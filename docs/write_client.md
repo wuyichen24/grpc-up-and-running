@@ -1,14 +1,16 @@
 # Write Client Code
-- [**Build Connection**](#build-connection)
-- [**Available Dial Option**](#available-dial-option)
-- [**Build Client**](#build-client)
-- [**Build Context**](#build-context)
-- [**Create Metadata (Optional)**](#create-metadata-optional)
-- [**Add Metadata to Context (Optional)**](#add-metadata-to-context-optional)
-- [**Call Remote Method**](#call-remote-method)
-- [**Handle Response Error**](#handle-response-error)
-- [**Read Metadata from Response**](#read-metadata-from-response)
+- [**Implement Main Method**](#implement-main-method)
+   - [**Build Connection**](#build-connection)
+   - [**Available Dial Option**](#available-dial-option)
+   - [**Build Client**](#build-client)
+   - [**Build Context**](#build-context)
+   - [**Create Metadata (Optional)**](#create-metadata-optional)
+   - [**Add Metadata to Context (Optional)**](#add-metadata-to-context-optional)
+   - [**Call Remote Method**](#call-remote-method)
+   - [**Handle Response Error**](#handle-response-error)
+   - [**Read Metadata from Response**](#read-metadata-from-response)
 
+## Implement Main Method
 ### Build Connection
 - Basic version
   ```go
