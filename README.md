@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0) 
 
-The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop.oreilly.com/product/0636920282754.do)" and the source code reconstruction.
+The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop.oreilly.com/product/0636920282754.do)" and the reconstruction of source code.
 
 ![](imgs/book-cover.jpg)
 
