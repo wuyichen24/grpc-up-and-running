@@ -1,6 +1,6 @@
 ## Write Server Code
 
-- [**Implement Main Method**]
+- [**Implement Main Method**](#implement-main-method)
    - [**Build Listener**](#build-listener)
    - [**Build gRPC Server**](#build-grpc-server)
       - Basic version
