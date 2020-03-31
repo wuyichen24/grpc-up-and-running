@@ -101,7 +101,7 @@
           Certificates: []tls.Certificate{cert},
           RootCAs:      certPool,
       })),
-	}
+  }
   ```
   
 ## Other Authentication Solutions
