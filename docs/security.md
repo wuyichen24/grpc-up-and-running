@@ -2,7 +2,12 @@
 
 - [**TLS Authentication**]()
    - [**One-way TLS**]()
+      - [**Server Code**]()
+      - [**Client Code**]()
    - [**Two-way TLS**]()
+      - [**Server Code**]()
+      - [**Client Code**]()
+      
 - [**Other Authentication Solutions**]()
    - [**Basic Auth**]()
    - [**OAuth 2.0**]()
@@ -11,7 +16,11 @@
 
 ## TLS Authentication
 ### One-way TLS
+#### Server Code
+#### Client Code
 ### Two-way TLS
+#### Server Code
+#### Client Code
 
 ## Other Authentication Solutions
 ### Basic Authentication
