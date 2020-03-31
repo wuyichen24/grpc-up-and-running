@@ -20,15 +20,23 @@
   ```go
   cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
   ```
-- Add an option to enable TLS for all incoming connections by adding certificates as TLS server credentials.
-  ```
+- Add an server option to enable TLS for all incoming connections by adding certificates as TLS server credentials.
+  ```go
   opts := []grpc.ServerOption{
       grpc.Creds(credentials.NewServerTLSFromCert(&cert)),
   }
   ```
 
 #### Client Code
-
+- Read and parse a public certificate and create a certificate.
+  ```go
+  creds, err := credentials.NewClientTLSFromFile("server.crt", "localhost")
+  ```
+- Add a dial option to include transport credentials.
+  ```
+  opts := []grpc.DialOption{
+      grpc.WithTransportCredentials(creds),
+  }
 
 ### Two-way TLS (mTLS)
 #### Server Code
