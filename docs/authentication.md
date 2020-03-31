@@ -10,8 +10,14 @@
       - [**Client Code**]()
 - [**Other Authentication Solutions**]()
    - [**Basic Auth**]()
+      - [**Server Code**]()
+      - [**Client Code**]()
    - [**OAuth 2.0**]()
+      - [**Server Code**]()
+      - [**Client Code**]()
    - [**JWT**]()
+      - [**Server Code**]()
+      - [**Client Code**]()
    - [**Google Token-Based Authentication**]()
 
 ## TLS Authentication
@@ -106,6 +112,17 @@
   
 ## Other Authentication Solutions
 ### Basic Authentication
+- Use the user credentials (username and password) to authenticate.
+- Request header: `Authorization: Basic YWRtaW46YWRtaW4=`
+#### Server Code
+#### Client Code
+
 ### OAuth 2.0
+#### Server Code
+#### Client Code
+
 ### JWT
+#### Server Code
+#### Client Code
+
 ### Google Token-Based Authentication
