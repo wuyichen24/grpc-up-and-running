@@ -15,6 +15,7 @@
 
 ## TLS Authentication
 ### One-way TLS
+Only authenticate server identity.
 #### Server Code
 - Create a certificate object by reading and parsing a public/private key pair
   ```go
@@ -40,6 +41,7 @@
   ```
 
 ### Two-way TLS (mTLS)
+Authenticate both server identity and client identity.
 #### Server Code
 #### Client Code
 
