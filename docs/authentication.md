@@ -84,7 +84,26 @@
   ```
 
 #### Client Code
-
+- Create a certificate object by parsing the pair of the client public certificate and the client private key.
+  ```go
+  cert, err := tls.LoadX509KeyPair("client.crt", "client.key")
+  ```
+- Read and append the CA public certificate to the certificate pool.
+  ```go
+  ca, err := ioutil.ReadFile(caFile)
+  certPool.AppendCertsFromPEM(ca)
+  ```
+- Add a dial option to include transport credentials.
+  ```go
+  opts := []grpc.DialOption{
+      grpc.WithTransportCredentials( credentials.NewTLS(&tls.Config{
+          ServerName:   hostname,                // ServerName must be equal to the Common Name on the certificate.
+          Certificates: []tls.Certificate{cert},
+          RootCAs:      certPool,
+      })),
+	}
+  ```
+  
 ## Other Authentication Solutions
 ### Basic Authentication
 ### OAuth 2.0
