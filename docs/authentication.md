@@ -20,7 +20,7 @@
 - Only authenticate server identity.
 - Only server shares public certificate.
 #### Server Code
-- Create a certificate object by reading and parsing a public/private key pair
+- Create a certificate object by parsing the pair of the server public certificate and the server private key.
   ```go
   cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
   ```
@@ -57,6 +57,20 @@
 - Once it is successful, the server gives permission to access protected data.
 
 #### Server Code
+- Create a certificate object by parsing the pair of the server public certificate and the server private key.
+  ```go
+  cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
+  ```
+- Create a certificate pool.
+  ```go
+  certPool := x509.NewCertPool()
+  ```
+- Read and append the CA public certificate to the certificate pool.
+  ```go
+  ca, err := ioutil.ReadFile(caFile)
+  certPool.AppendCertsFromPEM(ca)
+  ```
+
 #### Client Code
 
 ## Other Authentication Solutions
