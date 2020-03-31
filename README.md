@@ -20,6 +20,7 @@ This repository contains the Go source code of the book "[gRPC: Up and Running (
 - [Build Executable File](docs/build_executable.md)
 - [Write Client Code](docs/write_client.md)
 - [Write Server Code](docs/write_server.md)
+- [Authentication](docs/authentication.md)
 
 ## Services And Remote Methods
 ### Product Info
