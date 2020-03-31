@@ -7,7 +7,6 @@
    - [**Two-way TLS**]()
       - [**Server Code**]()
       - [**Client Code**]()
-      
 - [**Other Authentication Solutions**]()
    - [**Basic Auth**]()
    - [**OAuth 2.0**]()
