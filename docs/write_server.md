@@ -7,16 +7,9 @@
    - [**Register Service(s)**](#register-services)
    - [**Start gRPC Server**](#start-grpc-server)
 - [**Implement Remote Methods**](#implement-remote-methods)
-   - [Basic Pattern](#basic-pattern)
-   - [Process Inputs](#process-inputs)
-      - Process unary input
-      - Process stream intput
-      - Process metadata
-   - [Return Outputs](#return-outputs)
-      - Return unary output
-      - Return stream output
-      - Return metadata
-      - Return error
+   - [**Basic Pattern**](#basic-pattern)
+   - [**Process Inputs**](#process-inputs)
+   - [**Return Outputs**](#return-outputs)
 
 ## Implement Main Method
 ### Build Listener
