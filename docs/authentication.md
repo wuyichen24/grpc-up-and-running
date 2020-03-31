@@ -15,7 +15,8 @@
 
 ## TLS Authentication
 ### One-way TLS
-Only authenticate server identity.
+- Only authenticate server identity.
+- Only server shares public certificate.
 #### Server Code
 - Create a certificate object by reading and parsing a public/private key pair
   ```go
@@ -41,7 +42,17 @@ Only authenticate server identity.
   ```
 
 ### Two-way TLS (mTLS)
-Authenticate both server identity and client identity.
+- Authenticate both server identity and client identity.
+- Server and client share their public certificates with each other.
+
+#### Basic Flow
+- Client sends a request to access protected information from the server.
+- The server sends its X.509 certificate to the client.
+- Client validates the received certificate through a CA for CA-signed certificates.
+- If the verification is successful, the client sends its certificate to the server.
+- Server also verifies the client certificate through the CA.
+- Once it is successful, the server gives permission to access protected data.
+
 #### Server Code
 #### Client Code
 
