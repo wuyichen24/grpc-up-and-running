@@ -70,6 +70,18 @@
   ca, err := ioutil.ReadFile(caFile)
   certPool.AppendCertsFromPEM(ca)
   ```
+- Add an server option to enable TLS for all incoming connections by creating TLS credentials.
+  ```go
+  opts := []grpc.ServerOption{
+      grpc.Creds(
+          credentials.NewTLS(&tls.Config {
+              ClientAuth:   tls.RequireAndVerifyClientCert,
+              Certificates: []tls.Certificate{cert},
+              ClientCAs:    certPool,
+          },
+      )),
+  }
+  ```
 
 #### Client Code
 
