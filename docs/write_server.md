@@ -1,14 +1,14 @@
 ## Write Server Code
 - [**Build Listener**](#build-listener)
+- [**Build gRPC Server**](#build-grpc-server)
    - Basic version
    - With server option(s)
 - [**Available Server Option**](#available-server-option)
    - Unary interceptor
    - Stream interceptor
-- [**Build gRPC Server**](#build-grpc-server)
+- [**Register Service(s)**](#register-services)
    - Register single service
    - Register multiple services
-- [**Register Service(s)**](#register-services)
 - [**Start gRPC Server**](#start-grpc-server)
 - [**Implement Remote Methods**](#implement-remote-methods)
    - [Basic Pattern](#basic-pattern)
