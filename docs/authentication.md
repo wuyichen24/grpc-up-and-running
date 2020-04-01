@@ -139,6 +139,14 @@
       return token == base64.StdEncoding.EncodeToString([]byte("admin:admin"))    // username = "admin", password = "admin"
   }
   ```
+- Add the unary interceptor into the server option.
+  ```go
+  cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
+  opts := []grpc.ServerOption{
+      grpc.Creds(credentials.NewServerTLSFromCert(&cert)),
+      grpc.UnaryInterceptor(ensureValidBasicCredentials),
+  }
+  ```
 
 #### Client Code
 
