@@ -149,6 +149,43 @@
   ```
 
 #### Client Code
+- Create a struct to hold the credentials.
+  ```go
+  type basicAuth struct {
+      username string
+      password string
+  }
+  ```
+- Implement the interface of the struct.
+  ```go
+  // Convert user credentials to request metadata.
+  func (b basicAuth) GetRequestMetadata(ctx context.Context, in ...string) (map[string]string, error) {
+      auth := b.username + ":" + b.password
+      enc := base64.StdEncoding.EncodeToString([]byte(auth))
+      return map[string]string{
+          "authorization": "Basic " + enc,
+      }, nil
+  }
+
+  // Specify whether channel security is required to pass these credentials.
+  func (b basicAuth) RequireTransportSecurity() bool {
+      return true
+  }
+  ```
+- Add a dial option to include the credentials.
+  ```go
+  creds, err := credentials.NewClientTLSFromFile("server.crt", "localhost")
+  
+  auth := basicAuth{
+      username: "admin",
+      password: "admin",
+  }
+
+  opts := []grpc.DialOption{
+      grpc.WithPerRPCCredentials(auth),
+      grpc.WithTransportCredentials(creds),
+  }
+  ```
 
 ### OAuth 2.0
 #### Server Code
