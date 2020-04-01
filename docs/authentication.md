@@ -115,6 +115,7 @@
 - Use the user credentials (username and password) to authenticate.
 - Request header: `Authorization: Basic YWRtaW46YWRtaW4=`.
 - Cannot specify a validity period (When the username and password will be expired).
+
 #### Server Code
 - Implement an unary interceptor to decode the token and validate the credentials (username and password).
   ```go
@@ -189,6 +190,9 @@
   ```
 
 ### OAuth 2.0
+- To access the resource, the client needs to get a token from the authorization server.
+- To validate the token, the server needs to talk to the authorization server for validating the token.
+
 #### Server Code
 - Implement an unary interceptor to validate the token.
   ```go
@@ -224,6 +228,7 @@
 
 #### Client Code
 - Add a function to fetch the token from an authorization server (hardcoded token in the example).
+
   ```go
   func fetchToken() *oauth2.Token {
       return &oauth2.Token{
@@ -245,6 +250,9 @@
   ```
 
 ### JWT
+- To access the resource, the client needs to get a token from the authentication server.
+- The resource server can validate the token by itself.
+
 #### Server Code
 #### Client Code
 
