@@ -16,9 +16,9 @@
       - [**Server Code**](#server-code-3)
       - [**Client Code**](#client-code-3)
    - [**JWT**](#jwt)
-      - [**Server Code**](#server-code-4)
       - [**Client Code**](#client-code-4)
    - [**Google Token-Based Authentication**](#google-token-based-authentication)
+      - [**Client Code**](#client-code-5)
 
 ## TLS Authentication
 ### One-way TLS
@@ -268,3 +268,4 @@
   ```
   
 ### Google Token-Based Authentication
+#### Client Code
