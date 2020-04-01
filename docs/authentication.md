@@ -227,7 +227,7 @@
   ```go
   func fetchToken() *oauth2.Token {
       return &oauth2.Token{
-          AccessToken: "some-secret-token",   // hardcoded the token.
+          AccessToken: "abcd1234xyz",   // hardcoded the token.
       }
   }
   ```
