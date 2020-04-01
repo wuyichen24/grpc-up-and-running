@@ -113,7 +113,8 @@
 ## Other Authentication Solutions
 ### Basic Authentication
 - Use the user credentials (username and password) to authenticate.
-- Request header: `Authorization: Basic YWRtaW46YWRtaW4=`
+- Request header: `Authorization: Basic YWRtaW46YWRtaW4=`.
+- Cannot specify a validity period (When the username and password will be expired).
 #### Server Code
 - Implement an unary interceptor to decode the token and validate the credentials (username and password).
   ```go
