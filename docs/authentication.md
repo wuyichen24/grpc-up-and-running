@@ -223,6 +223,26 @@
   ```
 
 #### Client Code
+- Add a function to fetch the token from an authorization server (hardcoded token in the example).
+  ```go
+  func fetchToken() *oauth2.Token {
+      return &oauth2.Token{
+          AccessToken: "some-secret-token",   // hardcoded the token.
+      }
+  }
+  ```
+- Set up the credentials for the connection. 
+  ```go
+  auth := oauth.NewOauthAccess(fetchToken())
+  ```
+- Add a dial option to include the credentials.
+  ```go
+  creds, err := credentials.NewClientTLSFromFile("server.crt", "localhost")
+  opts := []grpc.DialOption{
+      grpc.WithPerRPCCredentials(auth),
+      grpc.WithTransportCredentials(creds),
+  }
+  ```
 
 ### JWT
 #### Server Code
