@@ -253,7 +253,18 @@
 - To access the resource, the client needs to get a token from the authentication server.
 - The resource server can validate the token by itself.
 
-#### Server Code
 #### Client Code
-
+- Create a credential object by reading and parsing the JWT token file.
+  ```go
+  jwtCreds, err := oauth.NewJWTAccessFromFile("token.json")
+  ```
+- Add a dial option to include the credentials.
+  ```go
+  creds, err := credentials.NewClientTLSFromFile("server.crt", "localhost")
+  opts := []grpc.DialOption{
+      grpc.WithPerRPCCredentials(jwtCreds),
+      grpc.WithTransportCredentials(creds),
+  }
+  ```
+  
 ### Google Token-Based Authentication
