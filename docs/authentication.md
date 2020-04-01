@@ -121,13 +121,13 @@
   // The unary interceptor
   func ensureValidBasicCredentials(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
       md, ok := metadata.FromIncomingContext(ctx)
-	   if !ok {
-	        return nil, errMissingMetadata
+      if !ok {
+          return nil, errMissingMetadata
       }
       if !valid(md["authorization"]) {
           return nil, errInvalidToken
       }
-	   // Continue execution of handler after ensuring a valid token.
+      // Continue execution of handler after ensuring a valid token.
       return handler(ctx, req)
   }
 
@@ -190,6 +190,38 @@
 
 ### OAuth 2.0
 #### Server Code
+- Implement an unary interceptor to validate the token.
+  ```go
+  // The unary interceptor
+  func ensureValidToken(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler (interface{}, error) {
+      md, ok := metadata.FromIncomingContext(ctx)
+      if !ok {
+          return nil, errMissingMetadata
+      }
+      if !valid(md["authorization"]) {
+          return nil, errInvalidToken
+      }
+      return handler(ctx, req)
+  }
+
+  // Validates the token.
+  func valid(authorization []string) bool {
+      if len(authorization) < 1 {
+          return false
+      }
+      token := strings.TrimPrefix(authorization[0], "Bearer ")
+      return token == "abcd1234xyz"       // The correct token.
+  }
+  ```
+- Add the unary interceptor into the server option.
+  ```go
+  cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
+  opts := []grpc.ServerOption{
+      grpc.Creds(credentials.NewServerTLSFromCert(&cert)),
+      grpc.UnaryInterceptor(ensureValidToken),
+  }
+  ```
+
 #### Client Code
 
 ### JWT
