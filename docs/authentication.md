@@ -269,3 +269,19 @@
   
 ### Google Token-Based Authentication
 #### Client Code
+- Create a credential object by reading and parsing the `service-account.json` file.
+  ```go
+  perRPC, err := oauth.NewServiceAccountFromFile("service-account.json", scope)
+  ```
+- Create a system certificate pool.
+  ```go
+  pool, _ := x509.SystemCertPool()
+  ```
+- Add a dial option to include the credentials.
+  ```go
+  creds := credentials.NewClientTLSFromCert(pool, "")
+  opts := []grpc.DialOption{
+      grpc.WithPerRPCCredentials(perRPC),
+      grpc.WithTransportCredentials(creds),
+  }
+  ```
