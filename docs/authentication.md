@@ -115,6 +115,31 @@
 - Use the user credentials (username and password) to authenticate.
 - Request header: `Authorization: Basic YWRtaW46YWRtaW4=`
 #### Server Code
+- Implement an unary interceptor to decode the token and validate the credentials (username and password).
+  ```go
+  // The unary interceptor
+  func ensureValidBasicCredentials(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+      md, ok := metadata.FromIncomingContext(ctx)
+	   if !ok {
+	        return nil, errMissingMetadata
+      }
+      if !valid(md["authorization"]) {
+          return nil, errInvalidToken
+      }
+	   // Continue execution of handler after ensuring a valid token.
+      return handler(ctx, req)
+  }
+
+  // Validates the credentials.
+  func valid(authorization []string) bool {
+      if len(authorization) < 1 {
+          return false
+      }
+      token := strings.TrimPrefix(authorization[0], "Basic ")
+      return token == base64.StdEncoding.EncodeToString([]byte("admin:admin"))    // username = "admin", password = "admin"
+  }
+  ```
+
 #### Client Code
 
 ### OAuth 2.0
