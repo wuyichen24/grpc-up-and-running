@@ -3,13 +3,12 @@ package main
 import (
 	"context"
 	"crypto/tls"
-	"encoding/base64"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
-	pb "grpc-up-and-running/examples/security/basic-auth/server/ecommerce"
+	pb "grpc-up-and-running/examples/security/oauth2/server/ecommerce"
 	"log"
 	"net"
 	"strings"
@@ -22,8 +21,7 @@ var (
 	crtFile            = "server.crt"    // server public certificate.
 	keyFile            = "server.key"    // server private key.
 
-	username           = "admin"         // correct username
-	password           = "admin"         // correct password
+	correctToken       = "some-secret-token"
 
 	errMissingMetadata = status.Errorf(codes.InvalidArgument, "missing metadata")
 	errInvalidToken    = status.Errorf(codes.Unauthenticated, "invalid credentials")
@@ -38,7 +36,7 @@ func main() {
 	opts := []grpc.ServerOption{
 		// Enable TLS for all incoming connections.
 		grpc.Creds(credentials.NewServerTLSFromCert(&cert)),
-		grpc.UnaryInterceptor(ensureValidBasicCredentials),
+		grpc.UnaryInterceptor(ensureValidToken),
 	}
 
 	s := grpc.NewServer(opts...)
@@ -57,25 +55,25 @@ func main() {
 // This method ensures a valid token exists within a request's metadata.
 // - If the token is missing or invalid, the interceptor blocks execution of the handler and returns an error.
 // - Otherwise, the interceptor invokes the unary handler.
-func ensureValidBasicCredentials(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+func ensureValidToken(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo,
+	handler grpc.UnaryHandler) (interface{}, error) {
 	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
-	 	return nil, errMissingMetadata
+		return nil, errMissingMetadata
 	}
 	if !valid(md["authorization"]) {
 		return nil, errInvalidToken
 	}
-	// Continue execution of handler after ensuring a valid token.
 	return handler(ctx, req)
 }
 
-// Validates the credentials.
+// Validates the token.
 func valid(authorization []string) bool {
 	if len(authorization) < 1 {
 		return false
 	}
-	token := strings.TrimPrefix(authorization[0], "Basic ")
-	return token == base64.StdEncoding.EncodeToString([]byte(username + ":" + password))
+	token := strings.TrimPrefix(authorization[0], "Bearer ")
+	return token == correctToken
 }
 
 func (s server) AddProduct(context.Context, *pb.Product) (*pb.ProductID, error) {
