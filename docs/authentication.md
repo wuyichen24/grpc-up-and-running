@@ -190,6 +190,7 @@
   ```
 
 ### OAuth 2.0
+![](../docs/diagram/oauth2.png)
 - To access the resource, the client needs to get a token from the authorization server.
 - To validate the token, the server needs to talk to the authorization server for validating the token.
 
@@ -250,6 +251,7 @@
   ```
 
 ### JWT
+![](../docs/diagram/jwt.png)
 - To access the resource, the client needs to get a token from the authentication server.
 - The resource server can validate the token by itself.
 
