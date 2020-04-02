@@ -2,9 +2,17 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0) 
 
-This repository contains the Go source code of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop.oreilly.com/product/0636920282754.do)" and the personal summary of technical essentials about gRPC.
+The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop.oreilly.com/product/0636920282754.do)" and the reconstruction of source code.
 
 ![](imgs/book-cover.jpg)
+
+## Study Notes
+- [Install Protocol Buffer Compiler](docs/install_protocol_buffer_compiler.md)
+- [Generate Server Stub](docs/generate_stub_go.md)
+- [Build Executable File](docs/build_executable.md)
+- [Write Client Code](docs/write_client.md)
+- [Write Server Code](docs/write_server.md)
+- [Authentication](docs/authentication.md)
 
 ## Differences to The Original Source Code
 - Add the detailed [instruction](docs/install_protocol_buffer_compiler.md) about how to install protocol buffer compiler.
@@ -13,13 +21,6 @@ This repository contains the Go source code of the book "[gRPC: Up and Running (
 - Make sure the code is runnable (Fix some issues in the original source code).
 - Better documentation.
 - Add comments to make the code easy to read.
-
-## Tutorials
-- [Install Protocol Buffer Compiler](docs/install_protocol_buffer_compiler.md)
-- [Generate Server Stub](docs/generate_stub_go.md)
-- [Build Executable File](docs/build_executable.md)
-- [Write Client Code](docs/write_client.md)
-- [Write Server Code](docs/write_server.md)
 
 ## Services And Remote Methods
 ### Product Info
