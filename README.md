@@ -25,7 +25,7 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
 ## Services And Remote Methods
 ### Product Info
 
-![](imgs/productinfo.png)
+![](docs/diagram/productinfo.png)
 
 | Method | Pattern | Description | 
 |---|---|---|
@@ -34,7 +34,7 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
 
 ### Order Management
 
-![](imgs/ordermgt.png)
+![](docs/diagram/ordermgt.png)
 
 | Method | Pattern | Description | 
 |---|---|---|
