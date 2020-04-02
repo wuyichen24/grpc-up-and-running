@@ -7,12 +7,23 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
 ![](imgs/book-cover.jpg)
 
 ## Study Notes
-- [Install Protocol Buffer Compiler](docs/install_protocol_buffer_compiler.md)
-- [Generate Server Stub](docs/generate_stub_go.md)
-- [Build Executable File](docs/build_executable.md)
-- [Write Client Code](docs/write_client.md)
-- [Write Server Code](docs/write_server.md)
-- [Authentication](docs/authentication.md)
+- [**Install Protocol Buffer Compiler**](docs/install_protocol_buffer_compiler.md)
+- [**Generate Server Stub**](docs/generate_stub_go.md)
+- [**Build Executable File**](docs/build_executable.md)
+- [**Write Client Code**](docs/write_client.md)
+   - [Implement Main Method](docs/write_client.md#implement-main-method)
+- [**Write Server Code**](docs/write_server.md)
+   - [Implement Main Method](docs/write_server.md#implement-main-method)
+   - [Implement Remote Methods](docs/write_server.md#implement-remote-methods)
+- [**Authentication**](docs/authentication.md)
+   - [TLS Authentication](docs/authentication.md#tls-authentication)
+      - [One-way TLS](docs/authentication.md#one-way-tls)
+      - [Two-way TLS (mTLS)](#two-way-tls-mtls)
+   - [Other Authentication Solutions](docs/authentication.md#other-authentication-solutions)
+      - [Basic Authentication](docs/authentication.md#basic-authentication)
+      - [OAuth 2.0](docs/authentication.md#oauth-20)
+      - [JWT](docs/authentication.md#jwt)
+      - [Google Token-Based Authentication](docs/authentication.md#google-token-based-authentication)
 
 ## Differences to The Original Source Code
 - Add the detailed [instruction](docs/install_protocol_buffer_compiler.md) about how to install protocol buffer compiler.
@@ -25,7 +36,7 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
 ## Services And Remote Methods
 ### Product Info
 
-![](imgs/productinfo.png)
+![](docs/diagram/productinfo.png)
 
 | Method | Pattern | Description | 
 |---|---|---|
@@ -34,7 +45,7 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
 
 ### Order Management
 
-![](imgs/ordermgt.png)
+![](docs/diagram/ordermgt.png)
 
 | Method | Pattern | Description | 
 |---|---|---|
