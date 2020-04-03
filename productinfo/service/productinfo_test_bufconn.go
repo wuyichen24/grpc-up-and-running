@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/test/bufconn"
 	"log"
 	"net"
-	pb "productinfo/service/ecommerce"
+	pb "grpc-gateway/server/ecommerce"
 	"testing"
 	"time"
 )
@@ -32,7 +32,7 @@ func initGRPCServerBuffConn() {
 	listener = bufconn.Listen(bufSize)
 	s := grpc.NewServer()
 	pb.RegisterProductInfoServer(s, &server{})
-	// Register reflection service on gRPC server.
+	// Register reflection server on gRPC server.
 	reflection.Register(s)
 	go func() {
 		if err := s.Serve(listener); err != nil {
