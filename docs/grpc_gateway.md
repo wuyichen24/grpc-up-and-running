@@ -119,3 +119,20 @@
       }
   }
   ```
+  
+## Build And Run gPRC Server and Reverse Proxy Server
+- No special logic to build the executable file for the reverse proxy server.
+- The instruction can be found in [here](../docs/build_executable.md).
+
+## Verify
+- **Test 1**
+   - Method: `POST`
+   - URL: `http://localhost:8081/v1/product`
+   - Body:
+     ```json
+     {
+       "name": "Apple", 
+       "description": "iphone7", 
+       "price": 699
+     }
+     ```
