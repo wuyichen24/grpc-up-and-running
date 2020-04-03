@@ -1,5 +1,15 @@
 # gRPC Gateway
 
+- [**Background**](#background)
+- [**Installation**](#installation)
+- [**Modify The Service Definition File (.proto)**](#modify-the-service-definition-file-proto)
+- [**Generate Service Stub (.pb.go)**](#generate-service-stub-pbgo)
+- [**Generate Reverse Proxy Stub (.pb.gw.go)**](#generate-reverse-proxy-stub-pbgwgo)
+- [**Write gRPC Server Code**](#write-grpc-server-code)
+- [**Write Reverse Proxy Server Code**](#write-reverse-proxy-server-code)
+- [**Build And Run gPRC Server and Reverse Proxy Server**](#build-and-run-gprc-server-and-reverse-proxy-server)
+- [**Verify**](#verify)
+
 ## Background
 - Add a reverse proxy server in front of gRPC server to expose RESTful JSON API for each remote method in the gRPC service and accept HTTP requests from REST clients.
 - Provide the ability to invoke gRPC service in both gRPC and RESTful ways.
