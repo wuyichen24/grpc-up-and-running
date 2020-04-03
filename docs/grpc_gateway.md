@@ -13,7 +13,7 @@
   go get -u github.com/golang/protobuf/protoc-gen-go
   ```
   
-## Modify The Service Definition File (*.proto)
+## Modify The Service Definition File (.proto)
 - Example
   ```proto
   syntax = "proto3";
@@ -54,11 +54,15 @@
    - For a message type in query parameters, each field of the message is mapped to a separate parameter.
      `...?foo.a=A&foo.b=B&foo.c=C`
 
-## Generate Service Stub (*.pb.go)
-- Change directory to the directory of `main.go` and `go.mod`.
+## Generate Service Stub (.pb.go)
+- Change directory to the base directory of the gRPC server (which has `main.go` and `go.mod`).
 - Run the command
   ```bash
   protoc -I <path_of_directory_storing_proto_file> <path_of_proto_file> \
   -I $GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
   --go_out=plugins=grpc:<path_of_directory_where_you_want_to_generate_stub_file>
   ```
+- It will generate the service stub `*.pb.go` in the target directory.
+
+## Generate Reverse Proxy Stub (.pb.gw.go)
+- Change directory to the base directory of the  (which has `main.go` and `go.mod`).
