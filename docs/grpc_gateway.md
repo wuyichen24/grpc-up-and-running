@@ -4,9 +4,9 @@
 - [**Installation**](#installation)
 - [**Modify The Service Definition File (.proto)**](#modify-the-service-definition-file-proto)
 - [**Generate Service Stub (.pb.go)**](#generate-service-stub-pbgo)
-- [**Generate Reverse Proxy Stub (.pb.gw.go)**](#generate-reverse-proxy-stub-pbgwgo)
+- [**Generate Reverse Proxy (.pb.gw.go)**](#generate-reverse-proxy-pbgwgo)
 - [**Write gRPC Server Code**](#write-grpc-server-code)
-- [**Write Reverse Proxy Server Code**](#write-reverse-proxy-server-code)
+- [**Write Reverse-Proxy Server Code**](#write-reverse-proxy-server-code)
 - [**Build And Run gPRC Server and Reverse Proxy Server**](#build-and-run-gprc-server-and-reverse-proxy-server)
 - [**Verify**](#verify)
 
@@ -75,7 +75,7 @@
   ```
 - It will generate the service stub `*.pb.go` in the target directory.
 
-## Generate Reverse Proxy Stub (.pb.gw.go)
+## Generate Reverse Proxy (.pb.gw.go)
 - Change directory to the base directory of the reverse proxy server (which has `main.go` for the reverse proxy server).
 - Run the command.
   ```bash
@@ -90,7 +90,7 @@
 - Just write the code of the gRPC server as before. No special code change for gRPC gateway.
 - The instruction can be found in [here](../docs/write_server.md).
 
-## Write Reverse Proxy Server Code
+## Write Reverse-Proxy Server Code
 - The following code will connect to the gRPC server by port 50051 and open HTTP endpoint at port 8081.
   ```go
   package main
