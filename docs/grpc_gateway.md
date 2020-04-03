@@ -73,3 +73,9 @@
   --grpc-gateway_out=logtostderr=true:<path_of_directory_where_you_want_to_generate_stub_file>
   ```
 - It will generate the reverse proxy stub `*.pb.gw.go` in the target directory.
+- Copy the service stub (.pb.go) into the same directory of the reverse proxy stub (.pb.gw.go).
+
+## Write gRPC Server Code
+The instruction can be found in [here](../docs/write_server.md)
+
+## Write Reverse Proxy Server Code
