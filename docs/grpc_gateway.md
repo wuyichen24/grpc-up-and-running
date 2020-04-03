@@ -55,8 +55,8 @@
      `...?foo.a=A&foo.b=B&foo.c=C`
 
 ## Generate Service Stub (.pb.go)
-- Change directory to the base directory of the gRPC server (which has `main.go` and `go.mod`).
-- Run the command
+- Change directory to the base directory of the gRPC server (which has `main.go` for the gRPC server).
+- Run the command.
   ```bash
   protoc -I <path_of_directory_storing_proto_file> <path_of_proto_file> \
   -I $GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
@@ -65,4 +65,11 @@
 - It will generate the service stub `*.pb.go` in the target directory.
 
 ## Generate Reverse Proxy Stub (.pb.gw.go)
-- Change directory to the base directory of the  (which has `main.go` and `go.mod`).
+- Change directory to the base directory of the reverse proxy server (which has `main.go` for the reverse proxy server).
+- Run the command.
+  ```bash
+  protoc -I <path_of_directory_storing_proto_file> <path_of_proto_file> \
+  -I $GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  --grpc-gateway_out=logtostderr=true:<path_of_directory_where_you_want_to_generate_stub_file>
+  ```
+- It will generate the reverse proxy stub `*.pb.gw.go` in the target directory.
