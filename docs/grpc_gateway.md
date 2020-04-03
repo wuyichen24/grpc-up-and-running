@@ -80,7 +80,7 @@
 - The instruction can be found in [here](../docs/write_server.md).
 
 ## Write Reverse Proxy Server Code
-- The following code will connect to the gRPC server at port 50051 and open HTTP endpoint at port 8081.
+- The following code will connect to the gRPC server by port 50051 and open HTTP endpoint at port 8081.
   ```go
   package main
 
