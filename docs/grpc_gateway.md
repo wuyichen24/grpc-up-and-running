@@ -13,6 +13,7 @@
 ## Background
 - Add a reverse proxy server in front of gRPC server to expose RESTful JSON API for each remote method in the gRPC service and accept HTTP requests from REST clients.
 - Provide the ability to invoke gRPC service in both gRPC and RESTful ways.
+- The gRPC Gateway project can be found in [here](https://github.com/grpc-ecosystem/grpc-gateway).
 
 ## Installation
 - Make sure the Protocol Buffer Compiler has been installed properly.
