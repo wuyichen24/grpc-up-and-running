@@ -136,3 +136,6 @@
        "price": 699
      }
      ```
+- **Test 2**
+   - Method: `GET`
+   - URL: `http://localhost:8081/v1/product/f7e2bc30-e51a-4840-a45a-0c5b676f58d4`
