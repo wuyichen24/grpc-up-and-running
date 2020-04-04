@@ -24,6 +24,7 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
       - [OAuth 2.0](docs/authentication.md#oauth-20)
       - [JWT](docs/authentication.md#jwt)
       - [Google Token-Based Authentication](docs/authentication.md#google-token-based-authentication)
+- [**gRPC Gateway**](docs/grpc_gateway.md)
 
 ## Differences to The Original Source Code
 - Add the detailed [instruction](docs/install_protocol_buffer_compiler.md) about how to install protocol buffer compiler.
