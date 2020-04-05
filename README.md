@@ -26,6 +26,22 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
       - [Google Token-Based Authentication](docs/authentication.md#google-token-based-authentication)
 - [**gRPC Gateway**](docs/grpc_gateway.md)
 
+## Directory Structure
+- **docs**: The study notes of this books
+   - diagram: The diagrams for this repository.
+- **examples**: The example code of gRPC sub-techniques.
+   - loadbalancing: The load balancer for multiple gRPC services.
+   - **security**: The example of the authentication solutions for gRPC.
+      - one-way-tls: The one-way TLS authentication.
+      - two-way-tls: The two-way (mTLS) authentication.
+      - basic-auth: The basic authentication.
+      - oauth2: The OAuth 2 authentication.
+      - jwt: The JWT authentication.
+   - grpc-gateway: The gRPC gateway example.
+- **imgs**: The images for this repository.
+- **productinfo**: The hello-world example of gRPC.
+- **ordermgt**: The gRPC examples for demostrating 4 gRPC communication patterns.
+
 ## Differences to The Original Source Code
 - Add the detailed [instruction](docs/install_protocol_buffer_compiler.md) about how to install protocol buffer compiler.
 - Add tutorials of writing server code and client code and modularize them by functionality.
