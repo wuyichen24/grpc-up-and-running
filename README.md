@@ -7,6 +7,9 @@ The study note of the book "[gRPC: Up and Running (Kasun Indrasiri)](http://shop
 ![](imgs/book-cover.jpg)
 
 ## Study Notes
+- [Google Doc](https://docs.google.com/document/d/1-9X1T80fF26CSScx9xJNqLx5o1ruhYRGycqEnd9W5Gk/edit?usp=sharing)
+
+## Experience 
 - [**Install Protocol Buffer Compiler**](docs/install_protocol_buffer_compiler.md)
 - [**Generate Server Stub**](docs/generate_stub_go.md)
 - [**Build Executable File**](docs/build_executable.md)
